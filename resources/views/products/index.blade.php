@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="container">
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
@@ -54,6 +55,6 @@
     </table>
 
     {!! $products->links() !!}
-
+</div>
     <p class="text-center text-primary"><small>Tutorial by omelab.net</small></p>
 @endsection

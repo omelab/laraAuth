@@ -53,32 +53,35 @@ class AdminController extends Controller
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
         $admin = Admin::create($input);
-        $admin->assignRole($request->input('roles'));
+        //$admin->syncRoles([$request->input('roles'), 'admin']);
 
-        return redirect()->route('admins.index')->with('success','Admin created successfully');
+        //$admin->assignRole($request->input('roles'));
+        $admin->assignRole($request->input('roles'), 'admin');
+
+        return redirect()->route('admin.index')->with('success','Admin created successfully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(Admin $admin)
     {
-        $admin = Admin::find($id);
+       // $admin = Admin::find($id);
         return view('admins.show',compact('admin'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit(Admin $admin)
     {
-        $admin = Admin::find($id);
+        //$admin = Admin::find($id);
         $roles = Role::pluck('name','name')->all();
         $adminRole = $admin->roles->pluck('name','name')->all();
         return view('admins.edit',compact('admin','roles','adminRole'));
@@ -88,11 +91,13 @@ class AdminController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
+     * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Admin $admin)
     {
+        $id = $admin->id;
+
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:admins,email,'.$id,
@@ -105,25 +110,26 @@ class AdminController extends Controller
         if(!empty($input['password'])){ 
             $input['password'] = Hash::make($input['password']);
         }else{
-            $input = array_except($input,array('password')); 
+            $input = $request->except(['password']);
         }
-
-        $admin = Admin::find($id);
+ 
         $admin->update($input);
 
         DB::table('model_has_roles')->where('model_id',$id)->delete();
-        $admin->assignRole($request->input('roles'));
 
-        return redirect()->route('admins.index')->with('success','Admin updated successfully');
+        $admin->assignRole($request->input('roles'));
+        //$admin->assignRole($request->input('roles'), 'admin');
+
+        return redirect()->route('admin.index')->with('success','Admin updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Product  $product
+     * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Admin $admin)
     {
         Admin::find($id)->delete();
 
