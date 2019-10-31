@@ -26,6 +26,18 @@ Route::post('/login/customer', 'Auth\LoginController@customerLogin');
 Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
 Route::post('/register/customer', 'Auth\RegisterController@createCustomer');
 
-Route::view('/home', 'home')->middleware('auth');
-Route::view('/admin', 'admin');
+Route::view('/home', 'home')->middleware('auth'); 
 Route::view('/customer', 'customer');
+
+
+Route::group(['middleware' => ['auth:admin']], function() {
+
+    Route::resource('roles','RoleController');
+
+    Route::resource('users','UserController');
+
+    Route::resource('admin','AdminController');
+
+    Route::resource('products','ProductController');
+
+});
