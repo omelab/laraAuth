@@ -79,6 +79,7 @@
         <main class="py-4">
             @yield('content')
         </main>
+        <footer class="footer-main"><p class="text-center text-primary"><small>Tutorial by omelab.net</small></p></footer>
     </div>
 </body>
 </html>

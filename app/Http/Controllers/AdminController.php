@@ -11,6 +11,19 @@ use Hash;
 
 class AdminController extends Controller
 {
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function dashboard(Request $request)
+    {
+        $title = "Dashboard";
+        return view('admins.dashboard',compact('title'));
+    }
+ 
+    
     /**
      * Display a listing of the resource.
      *
@@ -55,8 +68,7 @@ class AdminController extends Controller
         $admin = Admin::create($input);
         //$admin->syncRoles([$request->input('roles'), 'admin']);
 
-        //$admin->assignRole($request->input('roles'));
-        $admin->assignRole($request->input('roles'), 'admin');
+        $admin->assignRole($request->input('roles')); 
 
         return redirect()->route('admin.index')->with('success','Admin created successfully');
     }
@@ -81,6 +93,7 @@ class AdminController extends Controller
      */
     public function edit(Admin $admin)
     {
+
         //$admin = Admin::find($id);
         $roles = Role::pluck('name','name')->all();
         $adminRole = $admin->roles->pluck('name','name')->all();
@@ -117,8 +130,7 @@ class AdminController extends Controller
 
         DB::table('model_has_roles')->where('model_id',$id)->delete();
 
-        $admin->assignRole($request->input('roles'));
-        //$admin->assignRole($request->input('roles'), 'admin');
+        $admin->assignRole($request->input('roles')); 
 
         return redirect()->route('admin.index')->with('success','Admin updated successfully');
     }
@@ -133,7 +145,7 @@ class AdminController extends Controller
     {
         Admin::find($id)->delete();
 
-        return redirect()->route('admins.index')
+        return redirect()->route('admin.index')
             ->with('success','Admin deleted successfully');
     }
 }

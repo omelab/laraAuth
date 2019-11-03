@@ -1,5 +1,4 @@
-@extends('layouts.app')
-
+@extends('layouts.app-admin')
 
 @section('content')
     <div class="container">
@@ -9,11 +8,10 @@
                 <h2> Show Admin</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('admins.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('admin.index') }}"> Back</a>
             </div>
         </div>
     </div>
-
 
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">

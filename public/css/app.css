@@ -11100,3 +11100,8 @@ a.text-dark:focus {
   }
 }
 
+.footer-main{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app-admin')
 
 @section('content')
 <div class="container">
@@ -50,6 +50,5 @@
     </div>
     {!! Form::close() !!}
 
-</div>
-<p class="text-center text-primary"><small>Tutorial by omelab.net</small></p>
+</div> 
 @endsection
