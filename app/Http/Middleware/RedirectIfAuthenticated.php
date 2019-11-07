@@ -19,7 +19,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if ($guard == "admin" && Auth::guard($guard)->check()) {
-            return redirect('/admin');
+            return redirect('/lara-admin');
         }
         if ($guard == "customer" && Auth::guard($guard)->check()) {
             return redirect('/customer');
