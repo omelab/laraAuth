@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller; 
 use App\User; 
 use App\Admin;
-use App\Customer;
+use App\Writer;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers; 
 use Illuminate\Support\Facades\Hash;
@@ -42,7 +42,7 @@ class RegisterController extends Controller
     {
         $this->middleware('guest'); 
         $this->middleware('guest:admin');
-        $this->middleware('guest:customer');
+        $this->middleware('guest:writer');
     }
 
     /**
@@ -82,10 +82,10 @@ class RegisterController extends Controller
     }
 
 
-    //Show Customer Register Form
-    public function showCustomerRegisterForm()
+    //Show Writer Register Form
+    public function showWriterRegisterForm()
     {
-        return view('auth.register', ['url' => 'customer']);
+        return view('auth.register', ['url' => 'writer']);
     }
 
     //Store Admin Post Request
@@ -100,16 +100,16 @@ class RegisterController extends Controller
         return redirect()->intended('login/admin');
     }
 
-    //Store Customer Post Request
-    protected function createCustomer(Request $request)
+    //Store Writer Post Request
+    protected function createWriter(Request $request)
     {
         $this->validator($request->all())->validate();
-        $customer = Customer::create([
+        $writer = Writer::create([
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
         ]);
-        return redirect()->intended('login/customer');
+        return redirect()->intended('login/writer');
     }
 
 }

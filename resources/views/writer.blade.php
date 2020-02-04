@@ -8,7 +8,7 @@
                 <div class="card-header">Dashboard</div>
 
                 <div class="card-body">
-                    Hi there, awesome customer
+                    Hi there, awesome writers
                 </div>
             </div>
         </div>

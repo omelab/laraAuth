@@ -52,9 +52,9 @@ return [
             'provider' => 'admins',
         ],
 
-        'customer' => [
+        'writer' => [
             'driver' => 'session',
-            'provider' => 'customers',
+            'provider' => 'writers',
         ],
     ],
 
@@ -86,9 +86,9 @@ return [
             'model' => App\Admin::class,
         ],
 
-        'customers' => [
+        'writers' => [
             'driver' => 'eloquent',
-            'model' => App\Customer::class,
+            'model' => App\Writer::class,
         ],
 
         // 'users' => [

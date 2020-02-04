@@ -21,9 +21,11 @@ class RedirectIfAuthenticated
         if ($guard == "admin" && Auth::guard($guard)->check()) {
             return redirect('/lara-admin');
         }
-        if ($guard == "customer" && Auth::guard($guard)->check()) {
-            return redirect('/customer');
+
+        if ($guard == "writer" && Auth::guard($guard)->check()) {
+            return redirect('/writer');
         }
+
         if (Auth::guard($guard)->check()) {
             return redirect('/home');
         }
